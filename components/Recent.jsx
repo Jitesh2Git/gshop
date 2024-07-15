@@ -11,25 +11,15 @@ const Recent = ({ games }) => {
   const { onAdd, qty } = useStateContext();
 
   return (
-    <section className="px-3">
-      <h1 className="text-[40px] font-bold pb-8 pt-3 max-sm:text-2xl max-sm:pt-0">
-        <span className="p-4 text-5xl">|</span>Recent Games
+    <section className="section px-3">
+      <h1 className="section_heading">
+        <span className="section_span">|</span>Recent Games
       </h1>
-      <div
-        className="flex pb-8 gap-6 mx-6 px-1 overflow-x-scroll scrollbar
-      scrollbar-thumb-red hover:scrollbar-thumb-[#9f9f9f]"
-      >
+      <div className="section_recent_container">
         {games?.slice(0, 10).map((game) => (
-          <div
-            key={game._id}
-            className="relative group hover:bg-[#1e293b] rounded-xl 
-            shadow shadow-[#94a3b8] flex flex-col items-center
-            bg bg-[#f8fafc] min-w-[170px]"
-          >
+          <div key={game._id} className="group min-w-[170px] section_grid">
             <HiMiniShoppingBag
-              className="absolute top-3 right-3 p-3 text-red text-[43px] 
-            bg bg-[#f8fafc] rounded-xl hover:bg-[#1e293b] 
-            hover:outline outline-[#f8fafc] cursor-pointer"
+              className="shopping_bag"
               onClick={() => onAdd(game, qty)}
             />
             <Link href={`/game/${game.slug.current}`}>
@@ -45,26 +35,16 @@ const Recent = ({ games }) => {
                 />
               </div>
             </Link>
-            <div
-              className="flex flex-col justify-between items-center p-3 w-full
-            rounded-xl group-hover:text-[#f8fafc] group-hover:bg-[#1e293b]
-            text-center h-[100px]"
-            >
-              <p className="font-bold">{game.name}</p>
-              <p className="font-bold text-2xl text-red">${game.price}</p>
+            <div className="section_game_details flex-col text-center h-[100px]">
+              <p className="section_game_name">{game.name}</p>
+              <p className="section_game_price">${game.price}</p>
             </div>
           </div>
         ))}
       </div>
-      <div className="min-w-[100%] text-center">
+      <div className="section_button_container">
         <Link href="/library">
-          <button
-            className="px-4 border-2 py-4 m-10 rounded-xl bg bg-bgcol
-     hover:bg-[#1e293b] hover:text-red text-[12px] font-bold
-     border-red"
-          >
-            Explore All Our Games
-          </button>
+          <button className="section_nav_button">Explore All Our Games</button>
         </Link>
       </div>
     </section>

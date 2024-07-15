@@ -11,26 +11,16 @@ const Trending = ({ games }) => {
   const { onAdd, qty } = useStateContext();
 
   return (
-    <section className="px-3">
-      <h1 className="text-[40px] font-bold pb-8 pt-3 max-sm:text-2xl max-sm:pt-0">
-        <span className="p-4 text-5xl">|</span>Trending Games
+    <section className="section">
+      <h1 className="section_heading">
+        <span className="section_span">|</span>Trending Games
       </h1>
 
-      <div
-        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 
-        xl:grid-cols-5 px-5 mb-5"
-      >
+      <div className="section_trending_container">
         {games?.slice(0, 10).map((game) => (
-          <div
-            key={game._id}
-            className="relative group hover:bg-[#1e293b] rounded-xl 
-            shadow shadow-[#94a3b8] flex flex-col items-center
-            bg bg-[#f8fafc]"
-          >
+          <div key={game._id} className="group section_grid">
             <HiMiniShoppingBag
-              className="absolute top-3 right-3 p-3 text-red text-[43px] 
-            bg bg-[#f8fafc] rounded-xl hover:bg-[#1e293b] 
-            hover:outline outline-[#f8fafc] cursor-pointer"
+              className="shopping_bag"
               onClick={() => onAdd(game, qty)}
             />
             <Link href={`/game/${game.slug.current}`}>
@@ -46,12 +36,9 @@ const Trending = ({ games }) => {
                 />
               </div>
             </Link>
-            <div
-              className="flex justify-between items-center p-3 w-full
-            rounded-xl group-hover:text-[#f8fafc] group-hover:bg-[#1e293b]"
-            >
-              <p className="font-bold">{game.name}</p>
-              <p className="font-bold text-2xl text-red">${game.price}</p>
+            <div className="section_game_details">
+              <p className="section_game_name">{game.name}</p>
+              <p className="section_game_price">${game.price}</p>
             </div>
           </div>
         ))}

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const CustomToast = ({ quantity, game }) => (
@@ -24,6 +24,27 @@ export const StateContext = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalQuantities, setTotalQuantities] = useState(0);
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  useEffect(() => {
+    const savedCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+    const savedTotalPrice = JSON.parse(localStorage.getItem("totalPrice")) || 0;
+    const savedTotalQuantities =
+      JSON.parse(localStorage.getItem("totalQuantities")) || 0;
+
+    setCartItems(savedCartItems);
+    setTotalPrice(savedTotalPrice);
+    setTotalQuantities(savedTotalQuantities);
+    setIsInitialized(true);
+  }, []);
+
+  useEffect(() => {
+    if (isInitialized) {
+      localStorage.setItem("cartItems", JSON.stringify(cartItems));
+      localStorage.setItem("totalPrice", JSON.stringify(totalPrice));
+      localStorage.setItem("totalQuantities", JSON.stringify(totalQuantities));
+    }
+  }, [cartItems, totalPrice, totalQuantities, isInitialized]);
 
   const incQty = () => {
     setQty((prevQty) => prevQty + 1);

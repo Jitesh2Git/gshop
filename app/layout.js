@@ -2,6 +2,7 @@ import "./globals.css";
 import { StateContext } from "@/context/StateContext";
 import { Footer, Header } from "@/components";
 import { Toaster } from "react-hot-toast";
+import ThemeContextProvider from "@/context/ThemeContext";
 
 export const metadata = {
   title: "GSHOP | Buy Top Video Games",
@@ -10,20 +11,32 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html
-      lang="en"
-      className="h-[100%] bg bg-bgcol font-sans
-      overflow-y-scroll scrollbar-w-2 scrollbar
-      scrollbar-thumb-red hover:scrollbar-thumb-[#9f9f9f]
-      "
-    >
+    <html lang="en">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                const theme = window.localStorage.getItem('theme');
+                if (theme) {
+                  document.documentElement.classList.add(theme === 'dark' ? 'dark' : '');
+                } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                  document.documentElement.classList.add('dark');
+                }
+              })();
+            `,
+          }}
+        />
+      </head>
       <body>
-        <StateContext>
-          <Header />
-          <Toaster />
-          {children}
-          <Footer />
-        </StateContext>
+        <ThemeContextProvider>
+          <StateContext>
+            <Header />
+            <Toaster />
+            {children}
+            <Footer />
+          </StateContext>
+        </ThemeContextProvider>
       </body>
     </html>
   );

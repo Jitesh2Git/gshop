@@ -7,6 +7,7 @@ import Recent from "./Recent";
 import Featured from "./Featured";
 import Menu from "./Menu";
 import Search from "./Search";
+import ThemeSwitch from "./ThemeSwitch";
 
 export {
   Header,
@@ -18,4 +19,5 @@ export {
   Featured,
   Menu,
   Search,
+  ThemeSwitch,
 };

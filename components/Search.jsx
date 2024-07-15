@@ -1,33 +1,26 @@
 "use client";
 
-import { client } from "@/sanity/lib/client";
-import { groq } from "next-sanity";
 import React, { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { IoIosSearch } from "react-icons/io";
 import Image from "next/image";
 import { urlForImage } from "@/sanity/lib/image";
 import Link from "next/link";
+import { fetchGamesData } from "@/lib/actions";
 
 const Search = () => {
   const [games, setGames] = useState([]);
   const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
-    async function fetchData() {
+    const fetchData = async () => {
       try {
-        const data = await client.fetch(
-          groq`
-            *[_type=='games'] {
-              ...,
-            }
-          `
-        );
+        const data = await fetchGamesData();
         setGames(data);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching games data:", error);
       }
-    }
+    };
     fetchData();
   }, []);
 
@@ -54,44 +47,24 @@ const Search = () => {
           placeholder="Search Games..."
           value={inputValue}
           onChange={handleInputChange}
-          className="peer border-2 border-black rounded-xl px-12 py-[10px]
-           bg-bgcol text-sm font-semibold focus:outline-red w-full"
+          className="peer search_input"
         />
-        <IoIosSearch className="absolute ml-3 peer-focus:text-red" />
+        <IoIosSearch className="search_icon" />
         {inputValue && (
-          <IoClose
-            className="absolute right-3 cursor-pointer p-2 text-4xl 
-            rounded-3xl hover:text-red hover:bg-[#e2e8f0]"
-            onClick={clearInput}
-          />
+          <IoClose className="search_close" onClick={clearInput} />
         )}
       </div>
       {inputValue && (
-        <div
-          className="absolute left-1/2 transform -translate-x-1/2 mt-2 
-        w-[680px] max-h-[570px] bg-[#fffbfb] rounded-lg z-[99999]
-        overflow-hidden overflow-y-scroll scrollbar-w-2 scrollbar
-        scrollbar-thumb-red hover:scrollbar-thumb-[#9f9f9f]
-        scrollbar-track-rounded-xl scrollbar-thumb-rounded-xl
-        shadow-lg border border-[#cbd5e1]"
-        >
+        <div className="search_conatiner">
           {filteredGames?.length === 0 ? (
-            <div
-              className="p-2 rounded-xl text-sm font-bold
-            border-2 border-[#cbd5e1] m-3 text-center
-            "
-            >
-              No games found !
-            </div>
+            <div className="search_message">No games found !</div>
           ) : (
             filteredGames?.map((game) => (
               <Link
                 key={game.name}
                 href={`/game/${game.slug.current}`}
                 onClick={clearInput}
-                className="p-3 rounded-xl
-              border-2 border-[#e5e7eb] m-3 flex gap-4
-              bg bg-[#fffbfb] items-center hover:bg-[#e5e7eb]"
+                className="search_game_container"
               >
                 <Image
                   src={urlForImage(game.image)}
@@ -99,13 +72,11 @@ const Search = () => {
                   width={264}
                   height={352}
                   priority
-                  className="w-[90px] h-[100px] rounded-xl object-cover"
+                  className="search_game_image"
                 />
                 <div>
-                  <h1 className="text-lg font-bold">{game.name}</h1>
-                  <p className="mr-2 text-sm text-[#999999]">
-                    {game.details.slice(0, game.details.length / 1.6)}...
-                  </p>
+                  <h1 className="search_game_name">{game.name}</h1>
+                  <p className="search_game_details">{game.details}</p>
                   <p className="text-red">${game.price}</p>
                 </div>
               </Link>
