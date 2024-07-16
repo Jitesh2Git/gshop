@@ -2,10 +2,10 @@
 
 import React from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import { RxHamburgerMenu } from "react-icons/rx";
 import { Cart, Menu, Search, ThemeSwitch } from "@/components";
 import { useStateContext } from "@/context/StateContext";
 import Link from "next/link";
+import { HiOutlineMenuAlt3 } from "react-icons/hi";
 
 const Header = () => {
   const {
@@ -46,7 +46,7 @@ const Header = () => {
             <ThemeSwitch />
           </li>
           <li>
-            <RxHamburgerMenu
+            <HiOutlineMenuAlt3
               className="header_menu_icon"
               onClick={() => setToggleMenu(true)}
             />

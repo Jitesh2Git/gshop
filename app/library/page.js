@@ -25,7 +25,7 @@ const Library = () => {
   }, []);
 
   return (
-    <section className="px-2 dark:bg-dark section">
+    <section className="px-2 section">
       <h1 className="library_section_heading">
         <span className="section_span">|</span>Games Library
       </h1>

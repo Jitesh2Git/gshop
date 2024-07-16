@@ -17,8 +17,7 @@
 @layer utilities {
   /* Header Styles */
   .header {
-    @apply shadow shadow-red/20 dark:border-zinc-700 
-    dark:border-b;
+    @apply shadow shadow-red/20 dark:shadow-zinc-700;
   }
 
   .header_container {
@@ -129,7 +128,7 @@
   /* Cart Styles */
   .cart {
     @apply flex flex-col fixed h-[100%] bg-light right-0 top-0
-  w-[600px] z-[999] shadow-md shadow-[#cbd5e1] max-md:w-full
+  w-[600px] z-[9999] shadow-md shadow-[#cbd5e1] max-md:w-full
   overflow-hidden dark:bg-dark dark:shadow-zinc-700;
   }
 
@@ -230,7 +229,7 @@
 
   .menu_container {
     @apply fixed h-[100%] right-0 top-0 w-[600px] 
-    z-[999] max-md:w-full bg-light dark:bg-dark;
+    z-[99999] max-md:w-full bg-light dark:bg-dark;
   }
 
   .menu_header {
