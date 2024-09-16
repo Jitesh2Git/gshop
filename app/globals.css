@@ -272,11 +272,16 @@
     @apply flex flex-wrap justify-around items-center m-10 py-16 
     gap-10 px-10 shadow-[1px_5px_10px_3px_rgba(227,34,33,0.8)] 
     rounded-[45px] max-xl:text-center max-md:px-8 bg-[#fffbfb]
-    dark:bg-dark;
+    dark:bg-dark relative overflow-hidden;
+  }
+
+  .section_hero_overlay_image {
+    @apply dark:mix-blend-overlay object-cover
+    dark:opacity-[100%] mix-blend-difference opacity-[20%];
   }
 
   .section_banner {
-    @apply flex flex-col gap-5 w-[600px];
+    @apply flex flex-col gap-5 w-[600px] z-10;
   }
 
   .section_banner_large {
@@ -285,7 +290,7 @@
 
   .section_banner_small {
     @apply text-lg font-bold text-[#64748b] 
-    max-md:text-sm italic dark:text-zinc-600;
+    max-md:text-sm italic dark:text-zinc-500;
   }
 
   /* Common Styles */
