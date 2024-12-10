@@ -4,11 +4,6 @@
 
 /* Layout Page Styles */
 @layer base {
-  html {
-    @apply h-[100%] font-sans overflow-y-scroll scrollbar-w-2 scrollbar
-    scrollbar-thumb-red hover:scrollbar-thumb-[#9f9f9f];
-  }
-
   body {
     @apply bg-light dark:bg-dark;
   }
